@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Choix Encadrant PFE | LST GI 2025/2026</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(145deg, #eef2fc 0%, #e0e8f5 100%);
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, sans-serif;
+      padding: 2rem 1.5rem;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* modern glassmorphic card container */
+    .form-card {
+      max-width: 680px;
+      width: 100%;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(0px);
+      border-radius: 2rem;
+      box-shadow: 0 20px 40px -12px rgba(0, 20, 50, 0.15), 0 8px 24px -6px rgba(0, 32, 64, 0.05);
+      transition: transform 0.25s ease, box-shadow 0.3s ease;
+      overflow: hidden;
+      border: 1px solid rgba(66, 153, 225, 0.2);
+    }
+
+    .form-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 28px 48px -16px rgba(0, 79, 158, 0.25);
+    }
+
+    /* header with blue modern accent */
+    .card-header {
+      background: linear-gradient(135deg, #0a2b5e 0%, #1a4a8b 100%);
+      padding: 1.8rem 2rem;
+      text-align: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .card-header h1 {
+      font-size: 1.65rem;
+      font-weight: 600;
+      letter-spacing: -0.3px;
+      color: white;
+      margin: 0;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    }
+
+    .card-header p {
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 0.9rem;
+      margin-top: 0.6rem;
+      font-weight: 400;
+    }
+
+    /* form content */
+    .form-content {
+      padding: 2rem 2rem 1.8rem;
+    }
+
+    .input-group {
+      margin-bottom: 1.5rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .input-group label {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #1e3a6b;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .input-group label i {
+      font-style: normal;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    .required-star {
+      color: #e53e3e;
+      font-size: 1.1rem;
+      margin-left: 2px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 0.9rem 1rem;
+      font-size: 1rem;
+      font-family: 'Inter', sans-serif;
+      background: #ffffff;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 1rem;
+      transition: all 0.2s ease;
+      outline: none;
+      color: #0a2540;
+      font-weight: 500;
+    }
+
+    input:focus, select:focus {
+      border-color: #2c7be5;
+      box-shadow: 0 0 0 4px rgba(44, 123, 229, 0.15);
+      transform: scale(1.01);
+    }
+
+    input:hover, select:hover {
+      border-color: #bdd3ff;
+      background-color: #fafcff;
+    }
+
+    /* modern button */
+    .submit-btn {
+      width: 100%;
+      background: linear-gradient(105deg, #0f3b7a, #1e5ab5);
+      border: none;
+      padding: 1rem;
+      font-size: 1.05rem;
+      font-weight: 600;
+      font-family: inherit;
+      color: white;
+      border-radius: 2rem;
+      margin-top: 0.8rem;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      box-shadow: 0 6px 14px rgba(30, 90, 181, 0.25);
+      letter-spacing: 0.3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      background: linear-gradient(105deg, #0a2f64, #1661c4);
+      box-shadow: 0 12px 22px -8px rgba(30, 90, 181, 0.4);
+    }
+
+    .submit-btn:active {
+      transform: translateY(1px);
+      transition: 0.05s;
+    }
+
+    /* success message & selected supervisor card */
+    .success-area {
+      margin-top: 1.5rem;
+      padding: 0 0.2rem;
+      transition: all 0.3s ease;
+    }
+
+    .alert-success {
+      background: #e6f9ed;
+      border-left: 5px solid #2b9348;
+      padding: 1rem 1.2rem;
+      border-radius: 1.2rem;
+      color: #1a6e3b;
+      font-weight: 500;
+      font-size: 0.9rem;
+      backdrop-filter: blur(2px);
+      animation: fadeSlideUp 0.35s ease forwards;
+      margin-bottom: 1rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    }
+
+    .selected-supervisor-card {
+      background: #f0f5ff;
+      border-radius: 1.2rem;
+      padding: 1rem 1.4rem;
+      border: 1px solid #cddff7;
+      transition: all 0.2s;
+      animation: fadeSlideUp 0.4s ease;
+    }
+
+    .selected-supervisor-card h4 {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #2c5f9a;
+      margin-bottom: 0.4rem;
+      font-weight: 700;
+    }
+
+    .selected-supervisor-card p {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #0a2b5e;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .badge-supervisor {
+      background: #ffffff;
+      padding: 0.2rem 0.8rem;
+      border-radius: 2rem;
+      font-size: 0.8rem;
+      color: #1a4a8b;
+      font-weight: 500;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    }
+
+    /* error style */
+    .error-message {
+      color: #dc2626;
+      font-size: 0.75rem;
+      margin-top: 0.4rem;
+      margin-left: 0.5rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    input.error-input, select.error-input {
+      border-color: #f87171;
+      background-color: #fff5f5;
+    }
+
+    /* animations */
+    @keyframes fadeSlideUp {
+      0% {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* responsive mobile */
+    @media (max-width: 640px) {
+      body {
+        padding: 1rem;
+      }
+      .form-content {
+        padding: 1.5rem;
+      }
+      .card-header h1 {
+        font-size: 1.35rem;
+      }
+      .card-header {
+        padding: 1.3rem 1rem;
+      }
+      .submit-btn {
+        padding: 0.85rem;
+      }
+    }
+
+    /* subtle micro-interactions */
+    .input-group {
+      animation: fadeSlideUp 0.3s ease backwards;
+      animation-delay: calc(var(--order, 0) * 0.05s);
+    }
+
+    /* divider */
+    hr {
+      margin: 0.5rem 0 1rem;
+      border: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #cbd5e1, transparent);
+    }
+
+    .footer-note {
+      text-align: center;
+      font-size: 0.7rem;
+      color: #5f7f9e;
+      margin-top: 1.2rem;
+      border-top: 1px solid #eef2f9;
+      padding-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+<div class="form-card" id="appForm">
+  <div class="card-header">
+    <h1>📋 Choix Encadrant PFE</h1>
+    <p>LST GI — Année universitaire 2025/2026</p>
+  </div>
+  <div class="form-content">
+    <!-- Code Apogee -->
+    <div class="input-group" style="--order: 1">
+      <label><span>📘 Code Apogée</span><span class="required-star">*</span></label>
+      <input type="text" id="apogee" placeholder="ex: 22012345" autocomplete="off">
+      <div class="error-message" id="apogeeError"></div>
+    </div>
+
+    <!-- Nom -->
+    <div class="input-group" style="--order: 2">
+      <label><span>👤 Nom</span><span class="required-star">*</span></label>
+      <input type="text" id="nom" placeholder="Nom de famille" autocomplete="off">
+      <div class="error-message" id="nomError"></div>
+    </div>
+
+    <!-- Prénom -->
+    <div class="input-group" style="--order: 3">
+      <label><span>✍️ Prénom</span><span class="required-star">*</span></label>
+      <input type="text" id="prenom" placeholder="Prénom" autocomplete="off">
+      <div class="error-message" id="prenomError"></div>
+    </div>
+
+    <!-- Encadrant pédagogique dropdown -->
+    <div class="input-group" style="--order: 4">
+      <label><span>🎓 Encadrant pédagogique</span><span class="required-star">*</span></label>
+      <select id="supervisor">
+        <option value="" disabled selected>— Sélectionnez un encadrant —</option>
+        <!-- list provided -->
+        <option value="Pr. Mohamed HANINI">Pr. Mohamed HANINI</option>
+        <option value="Pr. Haitam ETTAZI">Pr. Haitam ETTAZI</option>
+        <option value="Pr. Imane LMATI">Pr. Imane LMATI</option>
+        <option value="Pr. Chaimae AZROUMAHLI">Pr. Chaimae AZROUMAHLI</option>
+        <option value="Pr. Fatima Ezzahraa BENBOUAZZA">Pr. Fatima Ezzahraa BENBOUAZZA</option>
+        <option value="Pr. Nabil LAACHFOUBI">Pr. Nabil LAACHFOUBI</option>
+        <option value="Pr. Loubna HAMAMI">Pr. Loubna HAMAMI</option>
+        <option value="Pr. Doha MALKI">Pr. Doha MALKI</option>
+        <option value="Pr. Taoufiq GADI">Pr. Taoufiq GADI</option>
+        <option value="Pr. Amine BENMAKHLOUF">Pr. Amine BENMAKHLOUF</option>
+        <option value="Pr. Abderrahim MARZOUK">Pr. Abderrahim MARZOUK</option>
+        <option value="Pr. Sara AREZKI">Pr. Sara AREZKI</option>
+        <option value="Pr. Taoufiq FOUAD">Pr. Taoufiq FOUAD</option>
+        <option value="Pr. Hicham BEN ALLA">Pr. Hicham BEN ALLA</option>
+        <option value="Pr. Soukiana MIHI">Pr. Soukiana MIHI</option>
+        <option value="Pr. Abdellah EZZATI">Pr. Abdellah EZZATI</option>
+        <option value="Pr. Amina OUATIQ">Pr. Amina OUATIQ</option>
+        <option value="Pr. Said EL KAFHALI">Pr. Said EL KAFHALI</option>
+        <option value="Pr. Mohamed LOUZAR">Pr. Mohamed LOUZAR</option>
+        <option value="Pr. Nassereddine BOUCHAIB">Pr. Nassereddine BOUCHAIB</option>
+      </select>
+      <div class="error-message" id="supervisorError"></div>
+    </div>
+
+    <button class="submit-btn" id="submitBtn">📌 Enregistrer mon choix <span>→</span></button>
+
+    <!-- dynamic messages area: success + selected supervisor -->
+    <div class="success-area" id="messageArea"></div>
+    <div class="footer-note">
+      🔒 Données enregistrées localement · Formulaire sécurisé
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    // DOM elements
+    const apogeeInput = document.getElementById('apogee');
+    const nomInput = document.getElementById('nom');
+    const prenomInput = document.getElementById('prenom');
+    const supervisorSelect = document.getElementById('supervisor');
+    const submitBtn = document.getElementById('submitBtn');
+    const messageArea = document.getElementById('messageArea');
+
+    // Error spans
+    const apogeeError = document.getElementById('apogeeError');
+    const nomError = document.getElementById('nomError');
+    const prenomError = document.getElementById('prenomError');
+    const supervisorError = document.getElementById('supervisorError');
+
+    // Helper: clear all errors & reset input error style
+    function clearErrors() {
+      apogeeError.innerHTML = '';
+      nomError.innerHTML = '';
+      prenomError.innerHTML = '';
+      supervisorError.innerHTML = '';
+      
+      [apogeeInput, nomInput, prenomInput, supervisorSelect].forEach(field => {
+        if(field) field.classList.remove('error-input');
+      });
+    }
+
+    // Helper: display field-specific error
+    function setError(element, errorSpan, message) {
+      errorSpan.innerHTML = message ? `⚠️ ${message}` : '';
+      if(message) {
+        element.classList.add('error-input');
+      } else {
+        element.classList.remove('error-input');
+      }
+    }
+
+    // validation logic, returns boolean
+    function validateForm() {
+      let isValid = true;
+      clearErrors();
+
+      const apogeeVal = apogeeInput.value.trim();
+      if(apogeeVal === '') {
+        setError(apogeeInput, apogeeError, 'Le code Apogée est requis');
+        isValid = false;
+      } else if (!/^[0-9A-Za-z]{5,12}$/.test(apogeeVal)) {
+        // accept alphanum, typical apogee format: flexible but not empty
+        setError(apogeeInput, apogeeError, 'Format invalide (5-12 caractères alphanumériques)');
+        isValid = false;
+      } else {
+        setError(apogeeInput, apogeeError, '');
+      }
+
+      const nomVal = nomInput.value.trim();
+      if(nomVal === '') {
+        setError(nomInput, nomError, 'Le nom est obligatoire');
+        isValid = false;
+      } else if (nomVal.length < 2) {
+        setError(nomInput, nomError, 'Nom trop court (min 2 lettres)');
+        isValid = false;
+      } else {
+        setError(nomInput, nomError, '');
+      }
+
+      const prenomVal = prenomInput.value.trim();
+      if(prenomVal === '') {
+        setError(prenomInput, prenomError, 'Le prénom est obligatoire');
+        isValid = false;
+      } else if (prenomVal.length < 2) {
+        setError(prenomInput, prenomError, 'Prénom trop court (min 2 lettres)');
+        isValid = false;
+      } else {
+        setError(prenomInput, prenomError, '');
+      }
+
+      const supervisorVal = supervisorSelect.value;
+      if(!supervisorVal || supervisorVal === '') {
+        setError(supervisorSelect, supervisorError, 'Veuillez sélectionner un encadrant');
+        isValid = false;
+      } else {
+        setError(supervisorSelect, supervisorError, '');
+      }
+
+      return isValid;
+    }
+
+    // display success message + show selected supervisor card
+    function displaySuccessMessage(selectedSupervisor, studentData) {
+      // Build success block
+      const successDiv = document.createElement('div');
+      successDiv.className = 'alert-success';
+      successDiv.innerHTML = `
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span style="font-size:1.3rem;">✅</span> 
+          <span><strong>Demande enregistrée !</strong> Vos informations ont été sauvegardées avec succès.</span>
+        </div>
+      `;
+
+      // Build selected supervisor card
+      const supervisorCard = document.createElement('div');
+      supervisorCard.className = 'selected-supervisor-card';
+      supervisorCard.innerHTML = `
+        <h4>📌 Encadrant PFE attribué</h4>
+        <p>
+          <span>${escapeHtml(selectedSupervisor)}</span>
+          <span class="badge-supervisor">Directeur de mémoire</span>
+        </p>
+        <div style="margin-top: 10px; font-size:0.8rem; color:#2c5282; border-top: 1px dashed #cddff7; padding-top: 8px;">
+          <span>👨‍🎓 ${escapeHtml(studentData.nom)} ${escapeHtml(studentData.prenom)} · Apogée: ${escapeHtml(studentData.apogee)}</span>
+        </div>
+      `;
+
+      // Clear previous messages and append new ones with smooth animation
+      messageArea.innerHTML = '';
+      messageArea.appendChild(successDiv);
+      messageArea.appendChild(supervisorCard);
+      
+      // auto-scroll into view for better UX
+      messageArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    // simple XSS safe helper
+    function escapeHtml(str) {
+      if (!str) return '';
+      return str.replace(/[&<>]/g, function(m) {
+        if (m === '&') return '&amp;';
+        if (m === '<') return '&lt;';
+        if (m === '>') return '&gt;';
+        return m;
+      }).replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, function(c) {
+        return c;
+      });
+    }
+
+    // save data to localStorage
+    function saveToLocalStorage(formData) {
+      try {
+        // Retrieve existing submissions or create new array
+        let existing = localStorage.getItem('pfe_supervisor_choices');
+        let submissions = [];
+        if (existing) {
+          submissions = JSON.parse(existing);
+        }
+        // add new record with timestamp
+        const newRecord = {
+          id: Date.now(),
+          apogee: formData.apogee,
+          nom: formData.nom,
+          prenom: formData.prenom,
+          supervisor: formData.supervisor,
+          timestamp: new Date().toISOString()
+        };
+        submissions.push(newRecord);
+        localStorage.setItem('pfe_supervisor_choices', JSON.stringify(submissions));
+        // also store latest individual choice for display consistency
+        localStorage.setItem('last_pfe_choice', JSON.stringify(newRecord));
+      } catch(e) {
+        console.warn("localStorage error", e);
+      }
+    }
+
+    // main submit handler
+    function handleSubmit(event) {
+      event.preventDefault();
+      
+      if(!validateForm()) {
+        // optional: subtle shake effect to indicate error? but we keep clean
+        const formCard = document.querySelector('.form-card');
+        formCard.style.transform = 'translateY(-2px)';
+        setTimeout(() => { formCard.style.transform = ''; }, 100);
+        return;
+      }
+
+      // Gather data
+      const apogee = apogeeInput.value.trim();
+      const nom = nomInput.value.trim();
+      const prenom = prenomInput.value.trim();
+      const supervisor = supervisorSelect.value;
+
+      const studentData = {
+        apogee: apogee,
+        nom: nom,
+        prenom: prenom,
+        supervisor: supervisor
+      };
+
+      // Save in localStorage
+      saveToLocalStorage(studentData);
+      
+      // Display modern success message + selected supervisor
+      displaySuccessMessage(supervisor, studentData);
+      
+      // Optional: add subtle micro-animation on the button and card
+      submitBtn.style.transform = 'scale(0.98)';
+      setTimeout(() => { submitBtn.style.transform = ''; }, 150);
+      
+      // We DO NOT reset fields by default to keep user satisfaction but we can optionally reset? 
+      // Requirement is to show success & localStorage, no specific reset, but we keep data filled.
+      // The form stays filled to reflect current submission, but user can modify later.
+      // Additionally, we can highlight success area.
+    }
+
+    // optional: load last saved data? not mandatory but nice UX prefill? We may not auto-populate,
+    // but we can show the most recent stored data on page load if exists? but NOT required.
+    // For extra micro feature: prefill from localStorage latest? That is optional but professional.
+    // to respect spec, we don't prefill automatically to avoid confusion, but we can show banner if there's previous submission.
+    function showLastSubmissionInfo() {
+      try {
+        const lastRaw = localStorage.getItem('last_pfe_choice');
+        if(lastRaw) {
+          const last = JSON.parse(lastRaw);
+          if(last && last.supervisor) {
+            // subtle non-intrusive notification that a previous choice exists (optional)
+            const existingNote = document.createElement('div');
+            existingNote.className = 'alert-success';
+            existingNote.style.background = '#eef2ff';
+            existingNote.style.borderLeftColor = '#2c7be5';
+            existingNote.style.marginBottom = '1rem';
+            existingNote.innerHTML = `📎 Dernier choix enregistré : ${escapeHtml(last.supervisor)} (${escapeHtml(last.nom)} ${escapeHtml(last.prenom)})`;
+            const msgContainer = document.getElementById('messageArea');
+            // only show if message area is empty (no success yet)
+            if(msgContainer && msgContainer.children.length === 0) {
+              msgContainer.appendChild(existingNote);
+              setTimeout(() => {
+                if(existingNote.parentNode) existingNote.style.opacity = '0.7';
+              }, 4000);
+            }
+          }
+        }
+      } catch(e) {}
+    }
+
+    // add live realtime validation clear on focus for better UX
+    function attachLiveClear() {
+      const fields = [apogeeInput, nomInput, prenomInput, supervisorSelect];
+      fields.forEach(field => {
+        field.addEventListener('focus', () => {
+          if(field === supervisorSelect) {
+            supervisorError.innerHTML = '';
+            field.classList.remove('error-input');
+          } else {
+            const errorSpan = field === apogeeInput ? apogeeError : (field === nomInput ? nomError : prenomError);
+            if(errorSpan) errorSpan.innerHTML = '';
+            field.classList.remove('error-input');
+          }
+        });
+      });
+    }
+
+    // additional: add subtle animation for inputs (order delay already in css)
+    submitBtn.addEventListener('click', handleSubmit);
+    
+    // also prevent accidental form reload
+    window.addEventListener('DOMContentLoaded', () => {
+      attachLiveClear();
+      showLastSubmissionInfo();
+      // set default empty select placeholder 
+      if(!supervisorSelect.value) supervisorSelect.selectedIndex = 0;
+      // Add ripple/ modern effect for button
+    });
+    
+    // extra: card entrance smoothness
+    document.querySelector('.form-card').style.animation = 'fadeSlideUp 0.5s ease';
+  })();
+</script>
+</body>
+</html>
